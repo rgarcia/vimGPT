@@ -3,6 +3,7 @@ from io import BytesIO
 
 from PIL import Image
 from playwright.sync_api import sync_playwright
+import os
 
 vimium_path = "./vimium-master"
 
@@ -13,7 +14,7 @@ class Vimbot:
             sync_playwright()
             .start()
             .chromium.launch_persistent_context(
-                "",
+                user_data_dir=os.environ.get("CHROME_USER_DATA"),
                 headless=headless,
                 args=[
                     f"--disable-extensions-except={vimium_path}",
